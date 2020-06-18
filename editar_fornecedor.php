@@ -1,0 +1,80 @@
+<?php
+    include 'conexao.php';
+    $id = $_GET['id'];
+?>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <!-- Meta tags Obrigatórias -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <!--Fonte padrão-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+
+    <!--Fonte Awesome-->
+    <link rel="stylesheet" href="fontawesome/css/all.min.css">
+
+    <title>Formulário de Cadastro</title>
+
+    <style>
+      body{
+        font-family: 'Roboto', sans-serif;
+      }
+      .container{
+        width: 500px;
+        margin-top: 40px;
+      }
+      #button{
+        background: #1abc9c;
+        color: #fff;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    
+    <div class="container">
+      <h4>Formulário de Edição</h4>
+      <form action="_atualizar_fornecedor.php" method="POST" class="mt-4">
+
+      <?php
+
+        $sql = "select * from `fornecedor` where id_fornecedor = $id";
+        $busca = mysqli_query($conexao, $sql);
+
+        while($array = mysqli_fetch_array($busca)){
+
+            $id_fornecedor = $array['id_fornecedor'];
+            $nome_fornecedor = $array['nome_fornecedor'];
+
+      ?>
+
+        <div class="form-group">
+          <label for="">Nome Fornecedor</label>
+          <input type="text" name="nome_fornecedor" class="form-control" value="<?php echo $nome_fornecedor ?>">
+          <input type="text" name="id" class="form-control" value="<?php echo $id_fornecedor ?>" style="display: none;">
+        </div>
+
+      <div class="d-flex justify-content-end">
+        <button type="submit" class="btn" id="button">
+        <span><i class="fas fa-sync-alt mr-2 text-white"></i></i></span>
+        Atualizar</button>
+      </div>
+      <?php }?>
+
+      </form>
+    </div>
+
+
+    <!-- JavaScript (Opcional) -->
+    <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
+    <script src="js/jQuery v3.4.1"></script>
+    <script src="js/bootstrap.bundle.min.js" ></script>
+    <script src="fontawesome/js/all.min.js"></script>
+  </body>
+</html>
